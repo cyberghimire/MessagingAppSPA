@@ -1,0 +1,14 @@
+.dropdown-item, .dropdown-toggle{
+    cursor: pointer;
+}
+/* 
+.form-align{
+    position: absolute;
+    right: 10px;
+    top: 4px;
+} */
+
+.align-right{
+    position: absolute;
+    right: 35px;
+}

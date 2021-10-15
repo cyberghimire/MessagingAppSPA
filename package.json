@@ -1,5 +1,5 @@
 {
-  "name": "dating-app-spa",
+  "name": "messaging-app-spa",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,14 +10,25 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.0.0",
+    "@angular/animation": "^4.0.0-beta.8",
+    "@angular/animations": "^12.0.5",
+    "@angular/cdk": "^12.2.5",
     "@angular/common": "~12.0.0",
     "@angular/compiler": "~12.0.0",
     "@angular/core": "~12.0.0",
     "@angular/forms": "~12.0.0",
+    "@angular/http": "^7.2.16",
+    "@angular/material": "^12.2.5",
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
     "@angular/router": "~12.0.0",
+    "@auth0/angular-jwt": "^5.0.2",
+    "alertifyjs": "^1.13.1",
+    "bootstrap": "^4.1.1",
+    "font-awesome": "^4.7.0",
+    "i": "^0.3.6",
+    "ngx-bootstrap": "^7.1.0",
+    "ngx-gallery-9": "^1.0.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
