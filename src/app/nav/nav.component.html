@@ -3,41 +3,36 @@
 
 
   <div *ngIf="loggedIn()">
-
+    
     <ul class="navbar-nav mr-auto" >
       <li class="nav-item0" routerLinkActive="active">
         <a class="nav-link" [routerLink] = "['/members']"> Members </a>
       </li>
-      
       <li class="nav-item0" routerLinkActive="active">
         <a class="nav-link" [routerLink] = "['/liked']"> Liked ♥ </a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/messages']" >Messages</a>
+        <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
     </ul>
   </div>
+  
+  <div *ngIf="loggedIn()" class="dropdown align-right" dropdown>
+    
+    <span dropdownToggle>
+      <img src="{{photoUrl}}" alt="{{authService.currentUser.Name}}" class="rounded-circle">
+    </span>
 
-    <div *ngIf="loggedIn()" class="dropdown align-right" dropdown>
-      <a class="btn dropdown-toggle text-light" dropdownToggle>
+    <a class="btn dropdown-toggle text-light" dropdownToggle>
         <i class="fa fa-user"></i>&nbsp;{{authService.decodedToken.unique_name}}
       </a>
 
-
       <div class="dropdown-menu mt-2 mr-auto" *dropdownMenu>
-        <a class="dropdown-item" href="#"><i class="fa fa-user" aria-hidden="true"></i> Edit Profile</a>
+        <a class="dropdown-item" [routerLink]="['/member/edit']"><i class="fa fa-user" aria-hidden="true"></i> Edit Profile</a>
         <div class="dropdown-divider" href="#"></div>
         <a class="dropdown-item" (click)="logout()"> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
       </div>
     </div>
-
-
-
-
-
-
-
-
 
 
 

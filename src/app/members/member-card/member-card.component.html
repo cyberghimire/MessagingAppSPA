@@ -1,16 +1,28 @@
-<div class="card mb-4" [routerLink]="['/members/', user?.id]" >
+<!-- <div class="card mb-4"  >
   <div class="card-img-wrapper">
-    <img src="{{user?.photoUrl}}" alt="{{user?.knownAs}}" class="card-image-top">
+    <img src="" alt="" class="card-image-top"> -->
+
+
     <!-- <ul class="list-inline member-icons animate text-center">
       <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user"></i></button></li>
       <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
       <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
     </ul> -->
-  </div>
+  <!-- </div>
   <div class="card-body p-1">
     <h6 class="card-title text-center mb-1">
-      <i class="fa fa-user"></i> {{user?.knownAs}}, {{user?.age}}
+     
     </h6>
-    <p class="card-text text-muted text-center"> {{user?.city}}</p>
+    <p class="card-text text-muted text-center"> </p>
+  </div>
+</div> -->
+
+
+<div class="card mb-4" style="width:400px" >
+  <img class="card-img-top" src="{{user?.photoUrl}}" alt="{{user?.knownAs}}" style="width:100%">
+  <div class="card-body">
+    <h4 class="card-title"> <i class="fa fa-user"></i> {{user?.knownAs}}, {{user?.age}}</h4>
+    <p class="card-text">{{user?.city}} </p>
+    <a href="#" class="btn btn-primary" [routerLink]="['/members/', user?.id]">See Profile</a>
   </div>
 </div>

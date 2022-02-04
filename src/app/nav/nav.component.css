@@ -8,6 +8,12 @@
     top: 4px;
 } */
 
+img{
+    max-height: 50px;
+    border: 2px solid white;
+    display: inline;
+}
+
 .align-right{
     position: absolute;
     right: 35px;

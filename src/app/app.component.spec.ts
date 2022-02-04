@@ -10,8 +10,8 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent
-      ],
-    }).compileComponents();
+      ], 
+    }).compileComponents(); 
   });
 
   it('should create the app', () => {
