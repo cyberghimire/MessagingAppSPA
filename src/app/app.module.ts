@@ -59,8 +59,8 @@ export function tokenGetter(){
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['localhost:5000'],
-        disallowedRoutes: ['localhost:5000/auth']
+        allowedDomains: ['localhost:5000', 'messagingappapi.herokuapp.com'],
+        disallowedRoutes: ['localhost:5000/api/auth', 'messagingappapi.herokuapp.com/api/auth']
       },
     },
     ),
