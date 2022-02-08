@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,13 +30,18 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeAgoPipeExtended } from './_pipes/time-ago-pipe';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { LoaderInterceptor } from './_services/loader.interceptor';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
 } 
 
 @NgModule({
-  declarations: [								
+  declarations: [									
       AppComponent,
       NavComponent,
       HomeComponent,
@@ -47,7 +52,10 @@ export function tokenGetter(){
       MessagesComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      TimeAgoPipeExtended,
+      SpinnerComponent,
+      MemberMessagesComponent
    ],
   imports: [
     BrowserModule,
@@ -78,7 +86,9 @@ export function tokenGetter(){
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    MessagesResolver,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

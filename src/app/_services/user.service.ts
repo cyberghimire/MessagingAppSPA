@@ -1,10 +1,11 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { empty, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/internal/operators/map';
+import { Messages } from '../_models/messages';
 
 
 @Injectable({
@@ -13,10 +14,17 @@ import { map } from 'rxjs/internal/operators/map';
 export class UserService {
   baseUrl = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+  loader = new BehaviorSubject<boolean>(false);
 
-  getUsers(page?: number, itemsPerPage?: number): Observable<PaginatedResult<User[] | null | undefined> | undefined>{
-    const paginatedResult: PaginatedResult<User[] | null | undefined> = new PaginatedResult<User[] | null | undefined>();
+  getSpinnerObserver(): Observable<boolean>{
+    return this.loader.asObservable();
+  }
+
+
+  constructor(private http: HttpClient) { }
+
+  getUsers(page?: number, itemsPerPage?: number): Observable<PaginatedResult<User[]>>{
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let params = new HttpParams();
     if(page != null && itemsPerPage != null){
       params = params.append("pageNumber", page);
@@ -32,7 +40,7 @@ constructor(private http: HttpClient) { }
         }
         else{
           console.log("Error retrieving data.");
-          return;
+          return null;
         }
       })
     );
@@ -52,5 +60,47 @@ constructor(private http: HttpClient) { }
 
   deletePhoto(userId: number, photoId: number){
     return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + photoId);
+  }
+
+  getMessages(userId: number, page?: number, itemsPerPage?: number, messageContainer?: string){
+    const paginatedResult : PaginatedResult<Messages[]> = new PaginatedResult<Messages[] >();
+
+    let params = new HttpParams();
+    params = params.append('messageContainer', messageContainer);
+
+    if(page !=null && itemsPerPage !=null){
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<Messages[]>(this.baseUrl + 'users/' + userId + '/messages', {observe: 'response', params})
+    .pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if(response.headers.get('Pagination') != null){
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination') as string);
+        }
+        return paginatedResult;
+
+      })
+    );
+  }
+
+  getMessageThread(userId: number, recipientId: number){
+    return this.http.get<Messages[]>(this.baseUrl + 'users/' + userId + '/messages/thread/' + recipientId);
+
+  }
+
+  sendMessage(userId: number, message: Messages){
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages', message );
+  }
+
+  deleteMessage(id: number, userId: number){
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {});
+  }
+
+  markAsRead(userId: number, messageId: number){
+    this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read' , {})
+    .subscribe();
   }
 }

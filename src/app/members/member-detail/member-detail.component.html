@@ -15,17 +15,17 @@
               </div>
               <div>
                 <strong>Last Active:</strong>
-                <p>{{user.lastActive}}</p>
+                <p>{{user.lastActive | timeAgo}}</p>
               </div>
               <div>
                 <strong>Memeber Since:</strong>
-                <p>{{user.created}}</p>
+                <p>{{user.created | date: 'mediumDate'}}</p>
               </div>
             </div>
             <div class="card-footer">
               <div class="btn-group d-flex">
                 <button class="btn btn-primary w-100">Like</button>
-                <button class="btn btn-primary ml-1 w-100">Message</button>
+                <button class="btn btn-primary ml-1 w-100" (click) = "selectTab(3)">Message</button>      <!--tabs work like arrays. So, first tab will have id of 0 and so on. -->
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
 
 
         <div class="tab-panel">
-          <tabset class="member-tabset">
+          <tabset class="member-tabset" #memberTabs>    <!--the template referene variable is used to identify this tab with the @Viewchild decorator in the typescript file -->
             <tab heading = "About {{user.knownAs}}">
               <h4> Description</h4>
               <p> {{user.introduction}}</p>
@@ -55,7 +55,7 @@
             </tab>
 
             <tab heading = "Messages">
-              Messages will go here. 
+              <app-member-messages [recipientId] = "user.id"></app-member-messages>
             </tab>
 
           </tabset>
