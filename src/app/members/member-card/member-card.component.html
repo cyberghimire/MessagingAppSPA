@@ -19,7 +19,7 @@
 
 
 <div class="card mb-4" style="width:400px" >
-  <img class="card-img-top" src="{{user?.photoUrl}}" alt="{{user?.knownAs}}" style="width:100%">
+  <img class="card-img-top" src="{{user.photoUrl || '../../../assets/bade.jpg.jpg'}}" alt="{{user?.knownAs}}" style="width:100%">
   <div class="card-body">
     <h4 class="card-title"> <i class="fa fa-user"></i> {{user?.knownAs}}, {{user?.age}}</h4>
     <p class="card-text">{{user?.city}} </p>

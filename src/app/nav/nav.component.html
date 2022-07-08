@@ -20,7 +20,7 @@
   <div *ngIf="loggedIn()" class="dropdown align-right" dropdown>
     
     <span dropdownToggle>
-      <img src="{{photoUrl}}" alt="{{authService.currentUser.Name}}" class="rounded-circle">
+      <img src="{{photoUrl || '../../assets/bade.jpg.jpg'}}" alt="{{authService.currentUser.Name}}" class="rounded-circle">
     </span>
 
     <a class="btn dropdown-toggle text-light" dropdownToggle>
